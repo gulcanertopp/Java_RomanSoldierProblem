@@ -1,0 +1,2 @@
+# RomanSoldierProblem
+The user will enter a number of roman soldiers and a step number. All soldiers will be counted up to the number of steps, soldier that Equal to the number of final steps will be removed by the program. This cycle will continue until the number of troops is less than the number of steps. The number of the last remaining soldiers and the number of seconds it will take to print.
