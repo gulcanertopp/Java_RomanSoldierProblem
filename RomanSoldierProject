@@ -1,0 +1,93 @@
+package theromansoldier;
+
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+import java.util.InputMismatchException;
+
+public class TheRomanSoldier {
+
+    public static void main(String[] args) {
+        //defined variables
+        int numofSoldier;
+        int step = 1;
+        int index = 1;
+        int stepnum;
+        int deadcount = 0;
+        int deadVal = 0;
+        long estimatedTime;
+        double seconds;
+        try {
+            Scanner input = new Scanner(System.in);
+            //input requests
+            System.out.println("Give a number of soldier?");
+            numofSoldier = input.nextInt();
+            
+
+            System.out.println("Give a number of step?");
+            stepnum = input.nextInt();
+
+            System.out.println("-----------------------------------");
+            System.out.println("SURVIVORS");
+            //*******************************************************************
+
+            long startTime = System.currentTimeMillis(); //timer start!
+
+            int soldierArr[] = new int[numofSoldier];
+
+            for (int i = 0; i < numofSoldier; i++) {    //fill in the array with 1. 1 value represents living soldiers
+                soldierArr[i] = 1;
+            }
+            if (numofSoldier == 0) {
+                System.out.println("Invalid value, please give number greater than 0"); //the control of zero input
+                 }
+                if (numofSoldier <= 2 && numofSoldier!=0) {                   //control of soldiers's number less than 2
+                    for (int i = 0; i < numofSoldier; i++) {
+                        System.out.println(i + 1 + " ");
+                    } 
+                    long endTime = System.currentTimeMillis();
+                    estimatedTime = endTime - startTime;
+                    seconds = (double) estimatedTime / 1000;
+
+                    System.out.println("The process was performed in " + seconds + " seconds"); //calculate the passing time
+                    //**************************************************************
+                } else {
+
+                    for (int i = 0; i < numofSoldier; i++) {
+                        if (numofSoldier - deadcount == 2) {
+                            for (int k = 0; k < numofSoldier; k++) {  //this for loop find the last two soldiers. And give output 
+                                if (soldierArr[k] != 0) {
+                                    System.out.print((k + 1) + "  ");
+                                }
+
+                            }
+                            long endTime = System.nanoTime();
+                            estimatedTime = endTime - startTime;
+                            seconds = estimatedTime / 1000;
+
+                            System.out.println("The process was performed in " + seconds + " seconds");
+                            System.out.println("-------------------------------------");
+                            System.out.println("Count of dead soldiers= " + deadcount);         //total dead soldiers
+                            break;
+                        } else {
+                            if (soldierArr[i] == 1) {           //control of this soldier is alive? 
+                                if (step % stepnum == 0) {          //control of step count
+                                    soldierArr[i] = deadVal;
+                                    deadcount++;                //dead soldier count
+                                }
+                                step++;
+                            }
+                            if (i == soldierArr.length - 1) {   //array bound control
+                                i = -1;
+                            }
+                        }
+                    }
+
+                }
+            }catch (InputMismatchException ime) {
+            JOptionPane.showMessageDialog(null, "This value is unknow. Please give a number.");
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ups. The program has encountered an unexpected error.");
+        }
+       
+        }
+    }
